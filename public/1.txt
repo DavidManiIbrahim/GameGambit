@@ -1,0 +1,131 @@
+"use client";
+import { useState } from "react";
+import Image from 'next/image'
+import { Wallet, Users, Trophy } from "lucide-react";
+
+export default function Home() {
+  const [email, setEmail] = useState("");
+
+  return (
+    <main className="min-h-screen flex flex-col items-center justify-center bg-black text-white">
+      {/* Navigation */}
+      <nav className="w-full flex justify-between items-center px-8 py-4 bg-gray-900/50 backdrop-blur-lg fixed top-0 z-50">
+        <div className="text-xl font-bold flex items-center gap-2">
+          <img src="/logo.png" alt="Logo" className="w-8 h-8" />
+          Game Gambit
+        </div>
+        <div className="flex gap-6 text-sm">
+          <a href="#" className="hover:text-purple-400">Home</a>
+          <a href="#how" className="hover:text-purple-400">How it Works</a>
+          <a href="#leaderboard" className="hover:text-purple-400">Leaderboard</a>
+        </div>
+        <button className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-lg text-sm">
+          Join Waitlist
+        </button>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="h-screen flex flex-col  justify-center items-center text-center px-4">
+       <img src="/GameGambit.png" alt="Logo" className="w-full h-full no-repeat" />
+        <p className="text-xs text-gray-400 mb-2">First 100 Sign-Ups Get $SOL!</p>
+        <h1 className="text-4xl md:text-6xl font-bold mb-3">Stake $SOL, Win Big</h1>
+        <p className="max-w-xl text-gray-300 mb-6">
+          Place your $SOL in high-stakes 1v1 matches on Game Gambit and get verified instant payouts.
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-3">
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter email address"
+            className="px-4 py-2 rounded-lg text-black w-64"
+          />
+          <button className="bg-purple-500 hover:bg-purple-600 px-5 py-2 rounded-lg font-medium">
+            Join Waitlist
+          </button>
+        </div>
+        <label className="text-xs text-gray-400 mt-2 flex items-center gap-2">
+          <input type="checkbox" className="accent-purple-500" /> I am 18+ years old
+        </label>
+      </section>
+
+      {/* How it Works */}
+      <section id="how" className="py-20 w-full text-center">
+        <h2 className="text-3xl font-bold mb-12">How it works</h2>
+        <div className="flex flex-col md:flex-row justify-center gap-8">
+          <div className="bg-purple-700/30 p-6 rounded-2xl w-64 mx-auto md:mx-0">
+            <Wallet className="mx-auto mb-3" />
+            <h3 className="font-semibold mb-2">1. Connect your wallet</h3>
+            <p className="text-sm text-gray-300">
+              Use Phantom, Solflare, Glow, etc.
+            </p>
+          </div>
+          <div className="bg-green-700/30 p-6 rounded-2xl w-64 mx-auto md:mx-0">
+            <Users className="mx-auto mb-3" />
+            <h3 className="font-semibold mb-2">2. Find an opponent</h3>
+            <p className="text-sm text-gray-300">
+              Match by player ID, location, or random.
+            </p>
+          </div>
+          <div className="bg-cyan-700/30 p-6 rounded-2xl w-64 mx-auto md:mx-0">
+            <Trophy className="mx-auto mb-3" />
+            <h3 className="font-semibold mb-2">3. Play, verify, win</h3>
+            <p className="text-sm text-gray-300">
+              Rewards via Solana smart contracts.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Beta Launch Section */}
+      <section className="py-20 text-center">
+        <p className="text-gray-400 mb-4">Beta Launch in 30 Days</p>
+        <div className="inline-flex flex-col sm:flex-row gap-3">
+          <input
+            type="email"
+            placeholder="Enter email address"
+            className="px-4 py-2 rounded-lg text-black w-64"
+          />
+          <button className="bg-pink-500 hover:bg-pink-600 px-5 py-2 rounded-lg font-medium">
+            Join Waitlist
+          </button>
+        </div>
+      </section>
+
+      {/* Subscriber Progress */}
+      <section className="bg-gradient-to-r from-pink-500 to-blue-500 rounded-3xl p-10 w-[90%] md:w-[70%] text-center mb-16">
+        <h3 className="text-2xl font-bold mb-2">Join 325 Subscribers</h3>
+        <p className="text-sm text-gray-200 mb-6">on the waitlist</p>
+        <div className="bg-gray-800 h-4 rounded-full overflow-hidden w-full max-w-lg mx-auto">
+          <div
+            className="bg-purple-400 h-4 rounded-full transition-all"
+            style={{ width: "32.5%" }}
+          ></div>
+        </div>
+        <div className="flex justify-between text-xs text-gray-200 mt-1 max-w-lg mx-auto">
+          <span>0 Subscribers</span>
+          <span>1000 Subscribers</span>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900/70 w-full py-8 px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="text-sm text-gray-400">
+          © {new Date().getFullYear()} Game Gambit. All rights reserved.
+          <div className="flex gap-4 mt-2">
+            <a href="#" className="hover:text-purple-400">Home</a>
+            <a href="#" className="hover:text-purple-400">How it Works</a>
+            <a href="#" className="hover:text-purple-400">Leaderboard</a>
+          </div>
+        </div>
+        <div className="flex gap-4 text-gray-400 text-xl">
+          <i className="fa-brands fa-discord"></i>
+          <i className="fa-brands fa-twitch"></i>
+          <i className="fa-brands fa-facebook"></i>
+          <i className="fa-brands fa-x-twitter"></i>
+        </div>
+      </footer>
+    </main>
+  );
+}
