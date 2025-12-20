@@ -1,35 +1,157 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --bg-dark: #000000;
+  --bg-card: #121212;
+  --accent-purple: #9d4edd;
+  --accent-pink: #ff00ff;
+  --accent-blue: #00d4ff;
+  --accent-green: #2ecc71;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --glass: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
 }
 
+/* Animations */
+@keyframes glow {
+  0% { box-shadow: 0 0 5px var(--accent-purple); }
+  50% { box-shadow: 0 0 20px var(--accent-purple); }
+  100% { box-shadow: 0 0 5px var(--accent-purple); }
+}
 
-.hero{ 
-  /* background-image: url('/GameGambit.png'); */
-   background-image: url(/GameGambit.png); 
-   width: 100%;
-   background-repeat: no-repeat;
-   background-size: cover;
- }
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.hero-glow {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100vh;
+  background: radial-gradient(circle at center, rgba(157, 78, 221, 0.15) 0%, transparent 70%);
+  z-index: -1;
+}
+
+.glass-card {
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: var(--accent-purple);
+  transform: translateY(-5px);
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, #ff00ff, #9d4edd);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+}
+
+.input-field {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 12px 20px;
+  color: white;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+  border-color: var(--accent-purple);
+}
+
+.step-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.step-number {
+  position: absolute;
+  bottom: -20px;
+  right: -10px;
+  font-size: 120px;
+  font-weight: 900;
+  opacity: 0.1;
+  color: var(--text-primary);
+}
+
+.match-card {
+  background: #1a1a1a;
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid #2a2a2a;
+}
+
+.badge-live {
+  background: rgba(46, 204, 113, 0.1);
+  color: #2ecc71;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.badge-live::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: #2ecc71;
+  border-radius: 50%;
+  display: block;
+}
+
+.progress-container {
+  background: rgba(255, 255, 255, 0.1);
+  height: 40px;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #ff00ff, #00d4ff);
+  border-radius: 20px;
+  width: 32.5%;
+}
+
+.footer-social-link {
+  color: var(--text-secondary);
+  font-size: 20px;
+  transition: color 0.3s ease;
+}
+
+.footer-social-link:hover {
+  color: var(--accent-purple);
+}

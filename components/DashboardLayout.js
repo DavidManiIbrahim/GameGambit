@@ -1,0 +1,79 @@
+'use client';
+
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { ChevronDown } from 'lucide-react';
+import Sidebar from './Sidebar';
+
+export default function DashboardLayout({ children, title }) {
+    const pathname = usePathname();
+    const [showProfileMenu, setShowProfileMenu] = useState(false);
+
+    // Derive title if not provided
+    const displayTitle = title || (pathname.split('/').pop() || 'Home');
+
+    return (
+        <div className="min-h-screen bg-black text-white font-sans flex">
+            {/* Reusable Sidebar */}
+            <Sidebar />
+
+            {/* Main Content Area */}
+            <div className="flex-1 ml-64 flex flex-col">
+                {/* Header */}
+                <header className="h-24 px-8 flex justify-between items-center bg-black/50 backdrop-blur-xl border-b border-white/5 sticky top-0 z-10">
+                    <h2 className="text-xl font-bold tracking-tight capitalize">
+                        {displayTitle}
+                    </h2>
+
+                    <div className="relative">
+                        <button
+                            onClick={() => setShowProfileMenu(!showProfileMenu)}
+                            className="flex items-center gap-3 bg-[#121212] hover:bg-[#1a1a1a] p-1.5 pl-4 rounded-full border border-white/5 transition-all outline-none"
+                        >
+                            <div className="bg-[#B03EE1]/10 text-[#B03EE1] text-[10px] font-black px-3 py-1 rounded-full border border-[#B03EE1]/20 uppercase tracking-widest hidden md:block">
+                                Veteran
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-[10px] font-black text-black">
+                                    JB
+                                </div>
+                                <span className="text-sm font-bold text-gray-300 hidden md:block">Jamesbond007</span>
+                                <ChevronDown size={14} className={`text-gray-500 transition-transform ${showProfileMenu ? 'rotate-180' : ''}`} />
+                            </div>
+                        </button>
+
+                        {/* Profile Dropdown */}
+                        {showProfileMenu && (
+                            <>
+                                <div className="fixed inset-0 z-10" onClick={() => setShowProfileMenu(false)}></div>
+                                <div className="absolute right-0 mt-3 w-56 bg-[#121212] border border-white/10 rounded-[24px] shadow-2xl py-3 z-20 animate-in fade-in zoom-in-95 duration-100 origin-top-right">
+                                    <Link
+                                        href="/profile/jamesbond007"
+                                        onClick={() => setShowProfileMenu(false)}
+                                        className="block px-6 py-3 text-sm text-gray-400 hover:text-white transition-colors"
+                                    >
+                                        View public profile
+                                    </Link>
+                                    <Link
+                                        href="/profile"
+                                        onClick={() => setShowProfileMenu(false)}
+                                        className="block px-6 py-3 text-sm text-gray-400 hover:text-white transition-colors"
+                                    >
+                                        View internal profile
+                                    </Link>
+                                    <div className="h-px bg-white/5 my-2 mx-4"></div>
+                                    <Link href="/" className="block px-6 py-3 text-sm text-red-500 font-bold hover:bg-red-500/5 transition-colors">Log out</Link>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                </header>
+
+                <main className="flex-1 p-8 overflow-y-auto">
+                    {children}
+                </main>
+            </div>
+        </div>
+    );
+}
