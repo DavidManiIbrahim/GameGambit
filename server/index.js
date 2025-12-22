@@ -21,7 +21,8 @@ app.use(morgan('dev'));
 app.use(cors({ origin: process.env.FRONTEND_URL || 'http://localhost:3000' }));
 app.use(express.json());
 
-// Health
+// Root/Health
+app.get('/', (req, res) => res.json({ message: 'Game Gambit API is running', version: '1.0.0' }));
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
 
 // Matches
