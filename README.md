@@ -74,8 +74,15 @@ GOOGLE_CLIENT_SECRET=your-google-client-secret
 DISCORD_CLIENT_ID=your-discord-client-id
 DISCORD_CLIENT_SECRET=your-discord-client-secret
 NEXTAUTH_SECRET=some-random-secret (run `openssl rand -hex 32`)
-NEXTAUTH_URL=http://localhost:3000
-```
+NEXTAUTH_URL=http://localhost:3000# Optional: SMTP for email delivery (or set OTP_DELIVERY=console to log codes)
+SMTP_HOST=
+SMTP_PORT=
+SMTP_USER=
+SMTP_PASS=
+SMTP_FROM=
+OTP_DELIVERY=console
+OTP_EXPIRY_MINUTES=10
+RESEND_COOLDOWN_SECONDS=60```
 
 ### Discord OAuth setup
 1. Create an application in the Discord Developer Portal: https://discord.com/developers/applications
@@ -97,9 +104,31 @@ npm run dev
 - Sign-in page updated to call `signIn('google')`
 - `components/Providers.js` wrapped with `SessionProvider`
 - `components/Sidebar.js` uses `signOut()` to log out
+- A minimal Express backend at `/server` (see below)
 
 5. Deploy: set the same env vars in Vercel and add production redirect URL(s) (e.g., `https://your-app.vercel.app/api/auth/callback/google`).
 
+---
+
+## Local backend (Express)
+There is a minimal demo backend at `/server` with:
+
+- `server/index.js` — Express app with these routes:
+  - `GET /health` — returns `{ status: 'ok' }`
+  - `GET /api/matches` — sample matches list
+  - `POST /api/matches` — add a match (JSON body: { players: [...], result })
+  - `GET /api/users` — sample users list
+
+To run the server locally:
+
+```
+# set env vars in server/.env (copy server/.env.example)
+npm run dev:server
+# or
+npm run start:server
+```
+
+The server listens on `PORT` (default `4000`) and accepts CORS requests from `http://localhost:3000` by default.
 ---
 
 ## License
