@@ -4,7 +4,11 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 
 export default function VerificationPage() {
-    const [code, setCode] = useState(['', '', '', '']);
+    const [email, setEmail] = useState('');
+    const [sending, setSending] = useState(false);
+    const [error, setError] = useState('');
+    const [code, setCode] = useState(['', '', '', '', '', '']); // 6-digit
+    const [cooldown, setCooldown] = useState(0);
 
     const handleChange = (index, value) => {
         if (value.length > 1) return;
@@ -13,11 +17,65 @@ export default function VerificationPage() {
         setCode(newCode);
 
         // Auto focus next
-        if (value && index < 3) {
+        if (value && index < newCode.length - 1) {
             const nextInput = document.getElementById(`otp-${index + 1}`);
             nextInput?.focus();
         }
     };
+
+    const send = async (type = 'send') => {
+        setError('');
+        if (!email) return setError('Please enter your email');
+        setSending(true);
+        try {
+            const url = type === 'resend' ? '/api/otp/resend' : '/api/otp/send';
+            const res = await fetch(url, { method: 'POST', body: JSON.stringify({ email }), headers: { 'Content-Type': 'application/json' } });
+            const json = await res.json();
+            if (!json.ok) {
+                setError(json.error || json.reason || 'Failed to send');
+            } else {
+                setCooldown(Number(json.cooldown || 60));
+                // start cooldown timer
+                const iv = setInterval(() => {
+                    setCooldown((c) => {
+                        if (c <= 1) {
+                            clearInterval(iv);
+                            return 0;
+                        }
+                        return c - 1;
+                    });
+                }, 1000);
+            }
+        } catch (err) {
+            setError(String(err));
+        } finally {
+            setSending(false);
+        }
+    };
+
+    const verify = async () => {
+        setError('');
+        const full = code.join('');
+        if (full.length < code.length) return setError('Enter the full code');
+        try {
+            const res = await fetch('/api/otp/verify', { method: 'POST', body: JSON.stringify({ email, code: full }), headers: { 'Content-Type': 'application/json' } });
+            const json = await res.json();
+            if (!json.ok) {
+                setError(json.error || json.reason || 'Verification failed');
+            } else {
+                // success — redirect
+                window.location.href = '/create-profile';
+            }
+        } catch (err) {
+            setError(String(err));
+        }
+    };
+
+    const resend = async () => {
+        if (cooldown > 0) return;
+        await send('resend');
+    };
+
 
     return (
         <div className="min-h-screen bg-black flex flex-col items-center justify-center p-4 font-sans">
@@ -28,7 +86,19 @@ export default function VerificationPage() {
                 </div>
 
                 <div className="space-y-10 flex flex-col items-center">
-                    <div className="flex gap-4 justify-center">
+                    <div className="w-full mb-6">
+                        <label className="text-gray-400 text-sm font-medium ml-1">Email Address</label>
+                        <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" className="w-full bg-[#1c1c1c]/50 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder:text-gray-600 focus:outline-none focus:border-purple-500/50 transition-colors" />
+                        {error && <p className="text-red-400 mt-2 text-sm">{error}</p>}
+                        <div className="flex gap-2 mt-3">
+                            <button onClick={() => send('send')} disabled={sending} className="bg-[#2b2b2b] text-white px-4 py-2 rounded-lg">Send code</button>
+                            <button onClick={() => send('resend')} disabled={sending || cooldown > 0} className="ml-2 bg-[#0F0F0F] text-white px-4 py-2 rounded-lg">
+                                {cooldown > 0 ? `Resend (${cooldown}s)` : 'Resend'}
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="flex gap-3 justify-center">
                         {code.map((digit, idx) => (
                             <input
                                 key={idx}
@@ -37,7 +107,7 @@ export default function VerificationPage() {
                                 maxLength={1}
                                 value={digit}
                                 onChange={(e) => handleChange(idx, e.target.value)}
-                                className="w-16 h-16 bg-[#1c1c1c]/50 border border-white/10 rounded-2xl text-center text-2xl font-bold text-white focus:outline-none focus:border-purple-500/50 transition-colors"
+                                className="w-12 h-12 bg-[#1c1c1c]/50 border border-white/10 rounded-2xl text-center text-xl font-bold text-white focus:outline-none focus:border-purple-500/50 transition-colors"
                                 onKeyDown={(e) => {
                                     if (e.key === 'Backspace' && !digit && idx > 0) {
                                         const prevInput = document.getElementById(`otp-${idx - 1}`);
@@ -48,14 +118,12 @@ export default function VerificationPage() {
                         ))}
                     </div>
 
-                    <Link href="/create-profile" className="w-full block">
-                        <button className="w-full bg-[#B03EE1] text-white rounded-full py-4 font-bold text-lg hover:bg-[#c04ef1] transition-all active:scale-[0.98] shadow-[0_0_20px_rgba(176,62,225,0.3)]">
-                            Continue
-                        </button>
-                    </Link>
+                    <button onClick={verify} className="w-full bg-[#B03EE1] text-white rounded-full py-4 font-bold text-lg hover:bg-[#c04ef1] transition-all active:scale-[0.98] shadow-[0_0_20px_rgba(176,62,225,0.3)]">
+                        Verify & Continue
+                    </button>
 
                     <p className="text-sm text-gray-500">
-                        Didn&apos;t receive a code? <button className="text-purple-500 font-medium hover:text-purple-400 transition-colors hover:underline underline-offset-4 decoration-purple-500/30">Resend</button>
+                        Didn&apos;t receive a code? <button onClick={resend} disabled={cooldown > 0} className="text-purple-500 font-medium hover:text-purple-400 transition-colors hover:underline underline-offset-4 decoration-purple-500/30">{cooldown > 0 ? `Resend (${cooldown}s)` : 'Resend'}</button>
                     </p>
                 </div>
             </div>
