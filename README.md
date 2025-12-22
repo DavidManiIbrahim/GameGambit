@@ -74,7 +74,8 @@ GOOGLE_CLIENT_SECRET=your-google-client-secret
 DISCORD_CLIENT_ID=your-discord-client-id
 DISCORD_CLIENT_SECRET=your-discord-client-secret
 NEXTAUTH_SECRET=some-random-secret (run `openssl rand -hex 32`)
-NEXTAUTH_URL=http://localhost:3000# Optional: SMTP for email delivery (or set OTP_DELIVERY=console to log codes)
+NEXTAUTH_URL=http://localhost:3000
+# Optional: SMTP for email delivery (or set OTP_DELIVERY=console to log codes)
 SMTP_HOST=
 SMTP_PORT=
 SMTP_USER=
@@ -82,7 +83,12 @@ SMTP_PASS=
 SMTP_FROM=
 OTP_DELIVERY=console
 OTP_EXPIRY_MINUTES=10
-RESEND_COOLDOWN_SECONDS=60```
+RESEND_COOLDOWN_SECONDS=60
+
+# Optional: MongoDB (persist OTPs and scale)
+MONGODB_URI=mongodb://username:password@host:port/dbname
+MONGODB_DB=game_gambit
+```
 
 ### Discord OAuth setup
 1. Create an application in the Discord Developer Portal: https://discord.com/developers/applications
