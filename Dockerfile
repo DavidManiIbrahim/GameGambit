@@ -1,6 +1,6 @@
 
 #-----------Base------------
-FROM node:18-alphine AS base
+FROM node:18-alpine AS base
 WORKDIR /app
 
 #--------Dependencies--------
@@ -15,7 +15,7 @@ COPY . .
 RUN npm run build
 
 #----------Production-------------
-FROM node:18-alphine AS runner
+FROM node:18-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
