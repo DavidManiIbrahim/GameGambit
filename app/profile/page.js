@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import {
     History,
@@ -67,8 +68,8 @@ export default function ProfilePage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                     {[1, 2, 3, 4].map((i) => (
                         <div key={i} className="group text-center space-y-4">
-                            <div className="aspect-[3/4] rounded-3xl overflow-hidden border border-white/5 group-hover:border-purple-500/50 transition-all">
-                                <img src="https://m.media-amazon.com/images/I/71uV6W9B6CL.png" alt="Game" className="w-full h-full object-cover transition-transform group-hover:scale-105 duration-500" />
+                            <div className="aspect-[3/4] rounded-3xl overflow-hidden border border-white/5 group-hover:border-purple-500/50 transition-all relative">
+                                <Image src="https://m.media-amazon.com/images/I/71uV6W9B6CL.png" alt="Game" fill className="object-cover transition-transform group-hover:scale-105 duration-500" />
                             </div>
                             <p className="text-[10px] uppercase tracking-widest font-black text-gray-600">8 matches</p>
                         </div>

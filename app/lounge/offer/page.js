@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Twitch, Youtube, Link as LinkIcon } from 'lucide-react';
 
@@ -16,8 +17,8 @@ export default function CounterOfferPage() {
 
                     <div className="absolute -bottom-14 flex flex-col items-center">
                         <div className="w-28 h-28 bg-[#121212] rounded-full p-1.5 border border-white/5 relative">
-                            <div className="w-full h-full rounded-full overflow-hidden bg-orange-400">
-                                <img src="/mascot.png" alt="Avatar" className="w-full h-full object-cover grayscale opacity-80" />
+                            <div className="w-full h-full rounded-full overflow-hidden bg-orange-400 relative">
+                                <Image src="/mascot.png" alt="Avatar" fill className="object-cover grayscale opacity-80" />
                             </div>
                             <div className="absolute bottom-1 left-1/2 -translate-x-1/2 bg-[#B03EE1]/20 text-[#B03EE1] text-[8px] font-black px-3 py-1 rounded-full border border-[#B03EE1]/30 uppercase tracking-widest whitespace-nowrap">
                                 Veteran
@@ -89,8 +90,8 @@ export default function CounterOfferPage() {
 
                     <div className="w-full space-y-6 pt-10 border-t border-white/5">
                         <div className="flex items-center gap-4 bg-white/5 rounded-2xl p-4 border border-white/5">
-                            <div className="w-12 h-12 bg-yellow-500 rounded-xl flex items-center justify-center overflow-hidden">
-                                <img src="https://m.media-amazon.com/images/I/71uV6W9B6CL.png" alt="COD" className="w-full h-full object-cover" />
+                            <div className="w-12 h-12 bg-yellow-500 rounded-xl flex items-center justify-center overflow-hidden relative">
+                                <Image src="https://m.media-amazon.com/images/I/71uV6W9B6CL.png" alt="COD" fill className="object-cover" />
                             </div>
                             <div className="text-left">
                                 <p className="font-bold text-sm text-gray-300">Call of Duty</p>

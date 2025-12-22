@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 export default function MatchesPage() {
     const [activeFilter, setActiveFilter] = useState('ALL');
@@ -50,8 +51,8 @@ export default function MatchesPage() {
                         {history.map((item, idx) => (
                             <div key={idx} className="flex items-center justify-between p-6 bg-white/3 border border-white/5 rounded-[32px] group hover:bg-white/5 transition-all">
                                 <div className="flex items-center gap-6">
-                                    <div className="w-16 h-16 bg-yellow-500 rounded-2xl overflow-hidden border border-white/10 group-hover:scale-105 transition-transform duration-300">
-                                        <img src="https://m.media-amazon.com/images/I/71uV6W9B6CL.png" alt="Game" className="w-full h-full object-cover" />
+                                    <div className="w-16 h-16 bg-yellow-500 rounded-2xl overflow-hidden border border-white/10 group-hover:scale-105 transition-transform duration-300 relative">
+                                        <Image src="https://m.media-amazon.com/images/I/71uV6W9B6CL.png" alt="Game" fill className="object-cover" />
                                     </div>
                                     <div className="space-y-1">
                                         <h4 className="font-black text-white text-lg">vs {item.opponent}</h4>
@@ -79,8 +80,8 @@ export default function MatchesPage() {
                         {history.slice(0, 3).map((item, idx) => (
                             <div key={idx + 10} className="flex items-center justify-between p-6 bg-white/3 border border-white/5 rounded-[32px] group hover:bg-white/5 transition-all opacity-60 hover:opacity-100">
                                 <div className="flex items-center gap-6">
-                                    <div className="w-16 h-16 bg-yellow-500 rounded-2xl overflow-hidden border border-white/10">
-                                        <img src="https://m.media-amazon.com/images/I/71uV6W9B6CL.png" alt="Game" className="w-full h-full object-cover" />
+                                    <div className="w-16 h-16 bg-yellow-500 rounded-2xl overflow-hidden border border-white/10 relative">
+                                        <Image src="https://m.media-amazon.com/images/I/71uV6W9B6CL.png" alt="Game" fill className="object-cover" />
                                     </div>
                                     <div className="space-y-1">
                                         <h4 className="font-black text-white text-lg">vs {item.opponent}</h4>

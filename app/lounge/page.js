@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { X, Sword } from 'lucide-react';
 
@@ -109,8 +110,8 @@ export default function LoungePage() {
                     <div className="border-t border-white/5 pt-8 text-left">
                         <p className="text-[10px] uppercase tracking-widest text-gray-600 font-bold mb-4">Game</p>
                         <div className="flex items-center gap-4 bg-white/5 rounded-2xl p-4 border border-white/5">
-                            <div className="w-12 h-12 bg-yellow-500 rounded-xl flex items-center justify-center overflow-hidden">
-                                <img src="https://m.media-amazon.com/images/I/71uV6W9B6CL.png" alt="COD" className="w-full h-full object-cover" />
+                            <div className="w-12 h-12 bg-yellow-500 rounded-xl flex items-center justify-center overflow-hidden relative">
+                                <Image src="https://m.media-amazon.com/images/I/71uV6W9B6CL.png" alt="COD" fill className="object-cover" />
                             </div>
                             <p className="font-bold text-sm text-gray-300">Call of Duty</p>
                         </div>
@@ -119,7 +120,7 @@ export default function LoungePage() {
                     <div className="mt-8 flex justify-between items-center border-t border-white/5 pt-6">
                         <p className="text-[10px] uppercase tracking-widest text-gray-600 font-bold">Wager</p>
                         <div className="flex items-center gap-2">
-                            <img src="https://solana.com/favicon-32x32.png" className="w-4 h-4 invert" alt="" />
+                            <Image src="https://solana.com/favicon-32x32.png" width={16} height={16} className="invert" alt="" />
                             <span className="text-xl font-black text-white tracking-tight">4 SOL</span>
                         </div>
                     </div>

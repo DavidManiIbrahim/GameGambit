@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import {
     Twitch,
     Youtube,
@@ -42,8 +43,8 @@ export default function PublicProfilePage() {
                             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
                                 {[1, 2, 3, 4].map((i) => (
                                     <div key={i} className="group flex flex-col items-center gap-4">
-                                        <div className="aspect-[3/4] w-full rounded-3xl overflow-hidden border border-white/5 shadow-xl transition-transform group-hover:scale-105">
-                                            <img src="https://m.media-amazon.com/images/I/71uV6W9B6CL.png" alt="Game" className="w-full h-full object-cover" />
+                                        <div className="aspect-[3/4] w-full rounded-3xl overflow-hidden border border-white/5 shadow-xl transition-transform group-hover:scale-105 relative">
+                                            <Image src="https://m.media-amazon.com/images/I/71uV6W9B6CL.png" alt="Game" fill className="object-cover" />
                                         </div>
                                         <span className="text-[10px] uppercase font-black text-gray-600 tracking-widest">8 matches</span>
                                     </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import {
     Trophy,
     MapPin,
@@ -59,8 +60,8 @@ export default function LeaderboardPage() {
                     <div className="flex flex-col items-center gap-4">
                         <div className="relative">
                             <div className="w-32 h-32 rounded-full border-4 border-white/20 p-1">
-                                <div className="w-full h-full bg-orange-400 rounded-full overflow-hidden">
-                                    <img src="/mascot.png" alt="Profile" className="w-full h-full object-cover grayscale opacity-80" />
+                                <div className="w-full h-full bg-orange-400 rounded-full overflow-hidden relative">
+                                    <Image src="/mascot.png" alt="Profile" fill className="object-cover grayscale opacity-80" />
                                 </div>
                             </div>
                             <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-yellow-500/20 text-yellow-500 text-[9px] font-black px-4 py-1.5 rounded-full border border-yellow-500/30 uppercase tracking-widest whitespace-nowrap shadow-xl">
