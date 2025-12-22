@@ -149,7 +149,7 @@ export default function SignupPage() {
             </div>
 
             <footer className="mt-8 text-center text-gray-600 text-[13px] max-w-sm leading-relaxed px-4">
-                By creating a new account, you agree to Game Gambit's <Link href="/terms" className="text-purple-500 underline decoration-purple-500/30 underline-offset-4 hover:decoration-purple-500 transition-all">Terms & Conditions</Link> and confirm you are 18+
+                By creating a new account, you agree to Game Gambit&apos;s <Link href="/terms" className="text-purple-500 underline decoration-purple-500/30 underline-offset-4 hover:decoration-purple-500 transition-all">Terms & Conditions</Link> and confirm you are 18+
             </footer>
         </div>
     );

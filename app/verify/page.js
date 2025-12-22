@@ -55,7 +55,7 @@ export default function VerificationPage() {
                     </Link>
 
                     <p className="text-sm text-gray-500">
-                        Didn't receive a code? <button className="text-purple-500 font-medium hover:text-purple-400 transition-colors hover:underline underline-offset-4 decoration-purple-500/30">Resend</button>
+                        Didn&apos;t receive a code? <button className="text-purple-500 font-medium hover:text-purple-400 transition-colors hover:underline underline-offset-4 decoration-purple-500/30">Resend</button>
                     </p>
                 </div>
             </div>

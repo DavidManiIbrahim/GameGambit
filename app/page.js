@@ -28,20 +28,20 @@ export default function Home() {
     <main className="min-h-screen flex flex-col items-center bg-black text-white relative">
       {/* Background Hero Effects */}
       <div className="absolute top-0 w-full h-screen overflow-hidden pointer-events-none -z-10">
-        <img src="/hero-bg.png" alt="background" className="w-full h-full object-cover opacity-50" />
+        <Image src="/hero-bg.png" alt="background" fill className="object-cover opacity-50" priority />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black"></div>
       </div>
 
       {/* Floating Chips */}
-      <img src="/poker-chip.png" className="absolute top-1/4 left-10 w-24 h-24 animate-pulse opacity-20 -z-5" alt="" />
-      <img src="/poker-chip.png" className="absolute top-1/3 right-10 w-32 h-32 animate-bounce opacity-20 -z-5" style={{ animationDuration: '4s' }} alt="" />
+      <Image src="/poker-chip.png" width={96} height={96} className="absolute top-1/4 left-10 animate-pulse opacity-20 -z-5" alt="" />
+      <Image src="/poker-chip.png" width={128} height={128} className="absolute top-1/3 right-10 animate-bounce opacity-20 -z-5" style={{ animationDuration: '4s' }} alt="" />
 
       {/* Navigation */}
       <nav className="w-full flex justify-between items-center px-12 py-6 z-50">
         <div className="flex items-center gap-3">
-          <img src="/logo.png" alt="Logo" className="w-10 h-10" />
+          <Image src="/logo.png" alt="Logo" width={40} height={40} />
         </div>
-        <div className="hidden md:flex gap-10 text-sm font-medium text-gray-300">
+        <div className="hidden md:flex gap-10 mx-auto text-sm font-medium text-gray-300">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <a href="#how" className="hover:text-white transition-colors">How it Works</a>
           <Link href="/dashboard" className="hover:text-white transition-colors">Dashboard</Link>
@@ -68,7 +68,7 @@ export default function Home() {
           />
           <Link href="/signup" className="btn-primary !px-8 flex items-center justify-center">Connect Wallet</Link>
         </div>
-        <p className="text-xs text-silver-400 opacity-60">Wait, it's not live yet but soon</p>
+        <p className="text-xs text-silver-400 opacity-60">Wait, it&apos;s not live yet but soon</p>
       </section>
 
       {/* How it Works Section */}
@@ -114,7 +114,7 @@ export default function Home() {
         {/* Game Category: 8 Ball Pool */}
         <div className="mb-12 bg-[#121212] rounded-3xl p-8 border border-white/5">
           <div className="flex items-center gap-3 mb-8">
-            <img src="/8ball.png" className="w-8 h-8 rounded-md" alt="" />
+            <Image src="/8ball.png" width={32} height={32} className="rounded-md" alt="" />
             <h3 className="text-xl font-semibold">8 Ball Pool</h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -145,7 +145,7 @@ export default function Home() {
                 <div className="flex justify-between items-center text-[10px] text-gray-500 pt-2 border-t border-white/5">
                   <span>Wager</span>
                   <span className="text-white flex items-center gap-1">
-                    <img src="https://solana.com/favicon-32x32.png" className="w-3 h-3 invert" alt="" /> 4 SOL
+                    <Image src="https://solana.com/favicon-32x32.png" width={12} height={12} className="invert" alt="" /> 4 SOL
                   </span>
                 </div>
               </Link>
@@ -156,7 +156,7 @@ export default function Home() {
         {/* Ludo Section */}
         <div className="mb-12 bg-[#121212] rounded-3xl p-8 border border-white/5">
           <div className="flex items-center gap-3 mb-8">
-            <img src="/ludo.png" className="w-8 h-8 rounded-md" alt="" />
+            <Image src="/ludo.png" width={32} height={32} className="rounded-md" alt="" />
             <h3 className="text-xl font-semibold">Ludo</h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -187,7 +187,7 @@ export default function Home() {
                 <div className="flex justify-between items-center text-[10px] text-gray-500 pt-2 border-t border-white/5">
                   <span>Wager</span>
                   <span className="text-white flex items-center gap-1">
-                    <img src="https://solana.com/favicon-32x32.png" className="w-3 h-3 invert" alt="" /> 4 SOL
+                    <Image src="https://solana.com/favicon-32x32.png" width={12} height={12} className="invert" alt="" /> 4 SOL
                   </span>
                 </div>
               </Link>
@@ -237,7 +237,7 @@ export default function Home() {
         </div>
 
         <div className="bg-[#121212] p-10 rounded-3xl border border-white/5 flex items-center justify-center w-full md:w-auto min-h-[250px]">
-          <img src="/mascot.png" className="w-48 h-48 object-contain" alt="Mascot" />
+          <Image src="/mascot.png" width={192} height={192} className="object-contain" alt="Mascot" />
         </div>
       </footer>
     </main >
