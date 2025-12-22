@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Eye, EyeOff } from 'lucide-react';
+import { signIn } from 'next-auth/react';
 
 export default function SignupPage() {
     const [showPassword, setShowPassword] = useState(false);
@@ -117,7 +118,7 @@ export default function SignupPage() {
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 mt-8">
-                    <button className="flex items-center justify-center bg-[#0F0F0F] hover:bg-[#1a1a1a] border border-white/5 rounded-xl py-4 transition-all group">
+                    <button onClick={() => signIn('google', { callbackUrl: '/dashboard' })} className="flex items-center justify-center bg-[#0F0F0F] hover:bg-[#1a1a1a] border border-white/5 rounded-xl py-4 transition-all group">
                         <svg className="w-6 h-6" viewBox="0 0 24 24">
                             <path
                                 fill="#4285F4"
@@ -136,14 +137,16 @@ export default function SignupPage() {
                                 d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                             />
                         </svg>
+                        <span className="ml-3 font-medium text-white">Google</span>
                     </button>
-                    <button className="flex items-center justify-center bg-[#0F0F0F] hover:bg-[#1a1a1a] border border-white/5 rounded-xl py-4 transition-all group">
+                    <button onClick={() => signIn('discord', { callbackUrl: '/dashboard' })} className="flex items-center justify-center bg-[#0F0F0F] hover:bg-[#1a1a1a] border border-white/5 rounded-xl py-4 transition-all group">
                         <svg className="w-6 h-6" viewBox="0 0 127.14 96.36">
                             <path
                                 fill="#5865F2"
                                 d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.22,85.25,68.42,68.42,0,0,1,28.68,80.18a48.09,48.09,0,0,0,4.06-3.15,75.44,75.44,0,0,0,61.68,0c1.43,1.14,2.78,2.2,4.06,3.15a68.42,68.42,0,0,1-10.54,5.07,77.7,77.7,0,0,0,6.51,11.11,105.73,105.73,0,0,0,32.17-16.15h0C129.46,52,120.35,28.41,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5.09-12.73,11.41-12.73S54.08,46,53.86,53,48.77,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5.09-12.73,11.41-12.73S96.08,46,95.86,53,90.77,65.69,84.69,65.69Z"
                             />
                         </svg>
+                        <span className="ml-3 font-medium text-white">Discord</span>
                     </button>
                 </div>
             </div>

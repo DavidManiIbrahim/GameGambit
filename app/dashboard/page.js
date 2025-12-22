@@ -1,8 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import {
     Gamepad2,
     UserPlus,
@@ -13,6 +15,13 @@ import {
 } from 'lucide-react';
 
 export default function DashboardPage() {
+    const router = useRouter();
+    const { data: session, status } = useSession();
+
+    useEffect(() => {
+        if (status === 'unauthenticated') router.push('/signin');
+    }, [status, router]);
+
     const leaderboardData = [
         { pos: '1st', name: 'Mary Gbobo', rate: '80%' },
         { pos: '2nd', name: 'Esther Amakiri', rate: '79%' },
@@ -20,6 +29,8 @@ export default function DashboardPage() {
         { pos: '4th', name: 'Rebecca Kalio', rate: '76%' },
         { pos: '5th', name: 'James Inatimi', rate: '72%' },
     ];
+
+    if (status === 'loading') return null;
 
     return (
         <div className="max-w-[1200px] mx-auto space-y-10 pb-20">

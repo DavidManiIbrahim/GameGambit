@@ -11,6 +11,7 @@ import {
     HelpCircle,
     LogOut
 } from 'lucide-react';
+import { signOut } from 'next-auth/react';
 
 const menuItems = [
     { name: 'Home', icon: Home, href: '/dashboard' },
@@ -56,10 +57,10 @@ export default function Sidebar() {
                     <HelpCircle size={20} />
                     <span className="font-medium text-sm">Help & Support</span>
                 </Link>
-                <Link href="/" className="flex items-center gap-3 px-4 py-3.5 rounded-2xl text-red-500/60 hover:bg-red-500/10 hover:text-red-500 transition-all group">
+                <button onClick={() => signOut({ callbackUrl: '/' })} className="w-full text-left flex items-center gap-3 px-4 py-3.5 rounded-2xl text-red-500/60 hover:bg-red-500/10 hover:text-red-500 transition-all group">
                     <LogOut size={20} />
                     <span className="font-medium text-sm">Log Out</span>
-                </Link>
+                </button>
             </div>
         </aside>
     );
