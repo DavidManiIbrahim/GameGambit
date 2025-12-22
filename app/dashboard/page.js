@@ -46,7 +46,7 @@ export default function DashboardPage() {
                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-500/30 to-transparent"></div>
                     <p className="text-[10px] uppercase tracking-[0.2em] text-gray-600 font-black mb-4">Total Amount Earned</p>
                     <div className="bg-white/5 px-4 py-2 rounded-full border border-white/5 flex items-center gap-2 mb-6 transition-all group-hover:bg-white/10">
-                        <Image src="https://solana.com/favicon-32x32.png" width={14} height={14} className="invert" alt="" />
+                        <Image src="" width={14} height={14} className="invert" alt="" />
                         <span className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">SOL</span>
                     </div>
                     <h2 className="text-5xl font-black text-white tracking-tighter">30.00 SOL</h2>

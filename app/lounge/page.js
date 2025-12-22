@@ -120,7 +120,7 @@ export default function LoungePage() {
                     <div className="mt-8 flex justify-between items-center border-t border-white/5 pt-6">
                         <p className="text-[10px] uppercase tracking-widest text-gray-600 font-bold">Wager</p>
                         <div className="flex items-center gap-2">
-                            <Image src="https://solana.com/favicon-32x32.png" width={16} height={16} className="invert" alt="" />
+                            <Image src="" width={16} height={16} className="invert" alt="" />
                             <span className="text-xl font-black text-white tracking-tight">4 SOL</span>
                         </div>
                     </div>

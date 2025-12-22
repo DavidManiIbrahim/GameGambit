@@ -80,7 +80,7 @@ export default function Home() {
             <div className="bg-purple-600/20 w-12 h-12 rounded-lg flex items-center justify-center mb-6 group-hover:bg-purple-600/30 transition-colors">
               <Wallet className="text-purple-500" />
             </div>
-            <h3 className="text-xl font-bold mb-3">Connect your Solana wallet to play</h3>
+            <h3 className="text-xl font-bold mb-3">Connect your  wallet to play</h3>
             <p className="text-gray-400 text-sm">Phantom, Solflare, Trust, etc.</p>
             <span className="step-number text-purple-500">1</span>
           </Link>
@@ -101,7 +101,7 @@ export default function Home() {
               <Trophy className="text-blue-500" />
             </div>
             <h3 className="text-xl font-bold mb-3">Play, verify, and win instant payouts!</h3>
-            <p className="text-gray-400 text-sm">Win rewards that are delivered instantly via Solana security.</p>
+            <p className="text-gray-400 text-sm">Win rewards that are delivered instantly via  security.</p>
             <span className="step-number text-blue-500">3</span>
           </div>
         </div>
@@ -145,7 +145,7 @@ export default function Home() {
                 <div className="flex justify-between items-center text-[10px] text-gray-500 pt-2 border-t border-white/5">
                   <span>Wager</span>
                   <span className="text-white flex items-center gap-1">
-                    <Image src="https://solana.com/favicon-32x32.png" width={12} height={12} className="invert" alt="" /> 4 SOL
+                    <Image src="" width={12} height={12} className="invert" alt="" /> 4 SOL
                   </span>
                 </div>
               </Link>
@@ -187,7 +187,7 @@ export default function Home() {
                 <div className="flex justify-between items-center text-[10px] text-gray-500 pt-2 border-t border-white/5">
                   <span>Wager</span>
                   <span className="text-white flex items-center gap-1">
-                    <Image src="https://solana.com/favicon-32x32.png" width={12} height={12} className="invert" alt="" /> 4 SOL
+                    <Image src="" width={12} height={12} className="invert" alt="" /> 4 SOL
                   </span>
                 </div>
               </Link>

@@ -72,7 +72,7 @@ export default function Home() {
             <Trophy className="mx-auto mb-3" />
             <h3 className="font-semibold mb-2">3. Play, verify, win</h3>
             <p className="text-sm text-gray-300">
-              Rewards via Solana smart contracts.
+              Rewards via  smart contracts.
             </p>
           </div>
         </div>
