@@ -14,18 +14,12 @@ export default function DashboardLayout({ children, title }) {
     const router = useRouter();
     const [showProfileMenu, setShowProfileMenu] = useState(false);
 
-    // Enforce verification for all dashboard-related pages
+    // Enforce authentication
     useEffect(() => {
-        if (status === 'authenticated' && !session?.user?.verified) {
-            // Only redirect if we ARENT already on the verify page
-            if (pathname !== '/verify') {
-                router.push('/verify');
-            }
-        }
         if (status === 'unauthenticated') {
             router.push('/signin');
         }
-    }, [status, session, pathname, router]);
+    }, [status, router]);
 
     // Derive title if not provided
     const displayTitle = title || (pathname.split('/').pop() || 'Home');
@@ -37,7 +31,7 @@ export default function DashboardLayout({ children, title }) {
         .slice(0, 2)
         .toUpperCase() || '??';
 
-    if (status === 'loading' || (status === 'authenticated' && !session?.user?.verified && pathname !== '/verify')) {
+    if (status === 'loading') {
         return (
             <div className="min-h-screen bg-black flex items-center justify-center">
                 <div className="w-10 h-10 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin"></div>
@@ -64,7 +58,7 @@ export default function DashboardLayout({ children, title }) {
                             className="flex items-center gap-3 bg-[#121212] hover:bg-[#1a1a1a] p-1.5 pl-4 rounded-full border border-white/5 transition-all outline-none"
                         >
                             <div className="bg-[#B03EE1]/10 text-[#B03EE1] text-[10px] font-black px-3 py-1 rounded-full border border-[#B03EE1]/20 uppercase tracking-widest hidden md:block">
-                                {session?.user?.verified ? 'Verified' : 'Unverified'}
+                                Active
                             </div>
                             <div className="flex items-center gap-2">
                                 {session?.user?.image ? (

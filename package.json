@@ -11,7 +11,10 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@firebase/app": "^0.14.6",
+    "@firebase/auth": "^1.12.0",
     "bcryptjs": "^3.0.3",
+    "firebase": "^12.7.0",
     "lucide-react": "^0.546.0",
     "mongodb": "^7.0.0",
     "next": "15.5.9",

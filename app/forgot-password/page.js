@@ -22,7 +22,7 @@ export default function ForgotPasswordPage() {
                         />
                     </div>
 
-                    <Link href="/verify" className="w-full block">
+                    <Link href="/signin" className="w-full block">
                         <button className="w-full bg-[#B03EE1] text-white rounded-full py-4 font-bold text-lg hover:bg-[#c04ef1] transition-all active:scale-[0.98] shadow-[0_0_20px_rgba(176,62,225,0.3)] mt-2">
                             Continue
                         </button>

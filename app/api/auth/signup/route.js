@@ -32,7 +32,6 @@ export async function POST(req) {
             email: email.toLowerCase(),
             password: hashedPassword,
             createdAt: new Date(),
-            verified: false,
             role: 'user'
         };
 

@@ -64,7 +64,7 @@ export default function SignupPage() {
                 if (result?.error) {
                     router.push('/signin');
                 } else {
-                    router.push('/verify'); // or /dashboard depending on flow
+                    router.push('/dashboard');
                 }
             }
         } catch (err) {

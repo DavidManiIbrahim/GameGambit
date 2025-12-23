@@ -69,7 +69,8 @@ export default function VerificationPage() {
                     setCooldown(json.wait);
                     startTimer(json.wait);
                 } else {
-                    setError(json.error || json.reason || 'Failed to send code');
+                    const msg = json.details || json.error || json.reason || 'Failed to send code';
+                    setError(msg);
                 }
             } else {
                 setMailSent(true);

@@ -21,12 +21,10 @@ export default function DashboardPage() {
     useEffect(() => {
         if (status === 'unauthenticated') {
             router.push('/signin');
-        } else if (status === 'authenticated' && !session?.user?.verified) {
-            router.push('/verify');
         }
-    }, [status, session, router]);
+    }, [status, router]);
 
-    if (status === 'loading' || (status === 'authenticated' && !session?.user?.verified)) {
+    if (status === 'loading') {
         return (
             <div className="min-h-screen bg-black flex items-center justify-center">
                 <div className="w-10 h-10 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin"></div>
