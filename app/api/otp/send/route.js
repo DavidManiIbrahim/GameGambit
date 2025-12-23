@@ -9,6 +9,9 @@ export async function POST(req) {
   const entry = await createOtpFor(email);
 
   const sendResult = await sendOtpEmail(email, entry.code);
+  if (!sendResult.ok) {
+    return NextResponse.json({ ok: false, error: 'send_failed', details: sendResult.error }, { status: 500 });
+  }
 
   return NextResponse.json({ ok: true, sendResult, cooldown: process.env.RESEND_COOLDOWN_SECONDS || 60 });
 }

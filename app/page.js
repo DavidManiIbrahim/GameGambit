@@ -28,13 +28,13 @@ export default function Home() {
     <main className="min-h-screen flex flex-col items-center bg-black text-white relative">
       {/* Background Hero Effects */}
       <div className="absolute top-0 w-full h-screen overflow-hidden pointer-events-none -z-10">
-        <Image src="/hero-bg.png" alt="background" fill className="object-cover opacity-50" priority />
+        {/* <Image src="/hero-bg.png" alt="background" fill className="object-cover opacity-50" priority /> */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black"></div>
       </div>
 
       {/* Floating Chips */}
-      <Image src="/poker-chip.png" width={96} height={96} className="absolute top-1/4 left-10 animate-pulse opacity-20 -z-5" alt="" />
-      <Image src="/poker-chip.png" width={128} height={128} className="absolute top-1/3 right-10 animate-bounce opacity-20 -z-5" style={{ animationDuration: '4s' }} alt="" />
+      {/* <Image src="/poker-chip.png" width={96} height={96} className="absolute top-1/4 left-10 animate-pulse opacity-20 -z-5" alt="" /> */}
+      {/* <Image src="/poker-chip.png" width={128} height={128} className="absolute top-1/3 right-10 animate-bounce opacity-20 -z-5" style={{ animationDuration: '4s' }} alt="" /> */}
 
       {/* Navigation */}
       <nav className="w-full flex justify-between items-center px-12 py-6 z-50">
@@ -114,7 +114,7 @@ export default function Home() {
         {/* Game Category: 8 Ball Pool */}
         <div className="mb-12 bg-[#121212] rounded-3xl p-8 border border-white/5">
           <div className="flex items-center gap-3 mb-8">
-            <Image src="/8ball.png" width={32} height={32} className="rounded-md" alt="" />
+            {/* <Image src="/8ball.png" width={32} height={32} className="rounded-md" alt="" /> */}
             <h3 className="text-xl font-semibold">8 Ball Pool</h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -156,7 +156,7 @@ export default function Home() {
         {/* Ludo Section */}
         <div className="mb-12 bg-[#121212] rounded-3xl p-8 border border-white/5">
           <div className="flex items-center gap-3 mb-8">
-            <Image src="/ludo.png" width={32} height={32} className="rounded-md" alt="" />
+            {/* <Image src="/ludo.png" width={32} height={32} className="rounded-md" alt="" /> */}
             <h3 className="text-xl font-semibold">Ludo</h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -237,7 +237,7 @@ export default function Home() {
         </div>
 
         <div className="bg-[#121212] p-10 rounded-3xl border border-white/5 flex items-center justify-center w-full md:w-auto min-h-[250px]">
-          <Image src="/mascot.png" width={192} height={192} className="object-contain" alt="Mascot" />
+          {/* <Image src="/mascot.png" width={192} height={192} className="object-contain" alt="Mascot" /> */}
         </div>
       </footer>
     </main >

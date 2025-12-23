@@ -18,7 +18,7 @@ export default function CounterOfferPage() {
                     <div className="absolute -bottom-14 flex flex-col items-center">
                         <div className="w-28 h-28 bg-[#121212] rounded-full p-1.5 border border-white/5 relative">
                             <div className="w-full h-full rounded-full overflow-hidden bg-orange-400 relative">
-                                <Image src="/mascot.png" alt="Avatar" fill className="object-cover grayscale opacity-80" />
+                                {/* <Image src="/mascot.png" alt="Avatar" fill className="object-cover grayscale opacity-80" /> */}
                             </div>
                             <div className="absolute bottom-1 left-1/2 -translate-x-1/2 bg-[#B03EE1]/20 text-[#B03EE1] text-[8px] font-black px-3 py-1 rounded-full border border-[#B03EE1]/30 uppercase tracking-widest whitespace-nowrap">
                                 Veteran
