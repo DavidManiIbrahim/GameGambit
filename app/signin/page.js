@@ -2,11 +2,46 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, Loader2 } from 'lucide-react';
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 export default function SignInPage() {
     const [showPassword, setShowPassword] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const router = useRouter();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError('');
+        if (!email || !password) {
+            setError('Please fill in all fields');
+            return;
+        }
+        setLoading(true);
+
+        try {
+            const result = await signIn('credentials', {
+                email,
+                password,
+                redirect: false,
+            });
+
+            if (result?.error) {
+                setError(result.error);
+            } else {
+                router.push('/dashboard');
+                router.refresh();
+            }
+        } catch (err) {
+            setError('An unexpected error occurred');
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <div className="min-h-screen bg-black flex items-center justify-center p-4 font-sans">
@@ -42,13 +77,22 @@ export default function SignInPage() {
                         <p className="text-gray-500 font-medium text-lg">Welcome Back</p>
                     </div>
 
-                    <form className="space-y-6">
+                    {error && (
+                        <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-2xl text-red-500 text-sm font-medium">
+                            {error}
+                        </div>
+                    )}
+
+                    <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="space-y-2">
                             <label className="text-gray-400 text-sm font-medium ml-1">Email Address</label>
                             <input
                                 type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 placeholder="Email"
                                 className="w-full bg-[#1c1c1c]/50 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder:text-gray-600 focus:outline-none focus:border-purple-500/50 transition-colors"
+                                required
                             />
                         </div>
 
@@ -59,8 +103,11 @@ export default function SignInPage() {
                             <div className="relative">
                                 <input
                                     type={showPassword ? "text" : "password"}
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     placeholder="Password"
                                     className="w-full bg-[#1c1c1c]/50 border border-white/10 rounded-2xl px-5 py-4 text-white placeholder:text-gray-600 focus:outline-none focus:border-purple-500/50 transition-colors pr-12"
+                                    required
                                 />
                                 <button
                                     type="button"
@@ -77,11 +124,13 @@ export default function SignInPage() {
                             </div>
                         </div>
 
-                        <Link href="/dashboard" className="w-full block">
-                            <button className="w-full bg-[#B03EE1] text-white rounded-full py-4 font-bold text-lg hover:bg-[#c04ef1] transition-all active:scale-[0.98] shadow-[0_0_20px_rgba(176,62,225,0.3)] mt-4">
-                                Continue
-                            </button>
-                        </Link>
+                        <button
+                            type="submit"
+                            disabled={loading}
+                            className="w-full bg-[#B03EE1] text-white rounded-full py-4 font-bold text-lg hover:bg-[#c04ef1] transition-all active:scale-[0.98] shadow-[0_0_20px_rgba(176,62,225,0.3)] mt-4 flex items-center justify-center gap-2"
+                        >
+                            {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Continue'}
+                        </button>
                     </form>
 
                     <div className="text-center mt-8">
