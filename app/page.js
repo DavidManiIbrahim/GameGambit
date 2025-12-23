@@ -134,8 +134,8 @@ export default function Home() {
               <h3 className="text-xl font-semibold">{matches[0]?.game || 'Matches'}</h3>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {matches.slice(0, 4).map((match) => (
-                <Link href="/lounge" key={match._id} className="match-card block hover:border-[#B03EE1]/50 hover:shadow-[0_0_15px_rgba(176,62,225,0.1)] transition-all">
+              {matches.slice(0, 4).map((match, index) => (
+                <Link href="/lounge" key={match._id || index} className="match-card block hover:border-[#B03EE1]/50 hover:shadow-[0_0_15px_rgba(176,62,225,0.1)] transition-all">
                   <div className="badge-live mb-4">Live Match</div>
                   <div className="flex justify-between items-center mb-6">
                     <div className="text-center">
