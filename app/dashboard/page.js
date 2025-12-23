@@ -36,7 +36,9 @@ export default function DashboardPage() {
         <div className="max-w-[1200px] mx-auto space-y-10 pb-20">
 
             <div className="space-y-2">
-                <h1 className="text-4xl font-black text-white tracking-tight">Welcome to Game Gambit</h1>
+                <h1 className="text-4xl font-black text-white tracking-tight">
+                    Welcome back, {session?.user?.name || 'Gamer'}
+                </h1>
             </div>
 
             {/* Stats Section */}
