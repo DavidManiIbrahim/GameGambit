@@ -13,5 +13,17 @@ export async function POST(req) {
   // On success, optionally delete OTP
   await deleteOtp(email);
 
+  // Mark user as verified in DB
+  try {
+    const { getDb } = await import('@/lib/mongo');
+    const db = await getDb();
+    await db.collection('users').updateOne(
+      { email: email.toLowerCase() },
+      { $set: { verified: true } }
+    );
+  } catch (err) {
+    console.error('Error marking user as verified', err);
+  }
+
   return NextResponse.json({ ok: true });
 }

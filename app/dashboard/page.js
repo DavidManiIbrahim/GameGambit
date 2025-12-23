@@ -9,9 +9,9 @@ import {
     Gamepad2,
     UserPlus,
     History,
-    CheckCircle2,
     TrendingUp,
-    Circle
+    Circle,
+    PackageOpen
 } from 'lucide-react';
 
 export default function DashboardPage() {
@@ -19,26 +19,28 @@ export default function DashboardPage() {
     const { data: session, status } = useSession();
 
     useEffect(() => {
-        if (status === 'unauthenticated') router.push('/signin');
-    }, [status, router]);
+        if (status === 'unauthenticated') {
+            router.push('/signin');
+        } else if (status === 'authenticated' && !session?.user?.verified) {
+            router.push('/verify');
+        }
+    }, [status, session, router]);
 
-    const leaderboardData = [
-        { pos: '1st', name: 'Mary Gbobo', rate: '80%' },
-        { pos: '2nd', name: 'Esther Amakiri', rate: '79%' },
-        { pos: '3rd', name: 'Joseph Seiyefa', rate: '78%' },
-        { pos: '4th', name: 'Rebecca Kalio', rate: '76%' },
-        { pos: '5th', name: 'James Inatimi', rate: '72%' },
-    ];
-
-    if (status === 'loading') return null;
+    if (status === 'loading' || (status === 'authenticated' && !session?.user?.verified)) {
+        return (
+            <div className="min-h-screen bg-black flex items-center justify-center">
+                <div className="w-10 h-10 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin"></div>
+            </div>
+        );
+    }
 
     return (
         <div className="max-w-[1200px] mx-auto space-y-10 pb-20">
-
             <div className="space-y-2">
                 <h1 className="text-4xl font-black text-white tracking-tight">
                     Welcome back, {session?.user?.name || 'Gamer'}
                 </h1>
+                <p className="text-gray-500 font-medium">Ready for your next challenge?</p>
             </div>
 
             {/* Stats Section */}
@@ -48,10 +50,9 @@ export default function DashboardPage() {
                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-500/30 to-transparent"></div>
                     <p className="text-[10px] uppercase tracking-[0.2em] text-gray-600 font-black mb-4">Total Amount Earned</p>
                     <div className="bg-white/5 px-4 py-2 rounded-full border border-white/5 flex items-center gap-2 mb-6 transition-all group-hover:bg-white/10">
-                        {/* <Image src="" width={14} height={14} className="invert" alt="" /> */}
                         <span className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">SOL</span>
                     </div>
-                    <h2 className="text-5xl font-black text-white tracking-tighter">30.00 SOL</h2>
+                    <h2 className="text-5xl font-black text-white tracking-tighter">0.00 SOL</h2>
                 </div>
 
                 {/* Game Stats Card */}
@@ -66,7 +67,7 @@ export default function DashboardPage() {
                                 </div>
                                 <span className="text-sm font-bold text-gray-400 group-hover:text-gray-200 transition-colors">Games Played</span>
                             </div>
-                            <span className="text-xl font-black text-white">123</span>
+                            <span className="text-xl font-black text-white">0</span>
                         </div>
 
                         <div className="flex items-center justify-between group">
@@ -76,7 +77,7 @@ export default function DashboardPage() {
                                 </div>
                                 <span className="text-sm font-bold text-gray-400 group-hover:text-gray-200 transition-colors">Games Won</span>
                             </div>
-                            <span className="text-xl font-black text-white">99</span>
+                            <span className="text-xl font-black text-white">0</span>
                         </div>
 
                         <div className="flex items-center justify-between group">
@@ -86,7 +87,7 @@ export default function DashboardPage() {
                                 </div>
                                 <span className="text-sm font-bold text-gray-400 group-hover:text-gray-200 transition-colors">Games lost</span>
                             </div>
-                            <span className="text-xl font-black text-white">33</span>
+                            <span className="text-xl font-black text-white">0</span>
                         </div>
                     </div>
                 </div>
@@ -104,120 +105,83 @@ export default function DashboardPage() {
                 </button>
             </div>
 
-            {/* Featured Games */}
+            {/* Featured Games placeholder */}
             <div className="space-y-6">
                 <div className="flex justify-between items-center text-center">
-                    <span className="text-xs uppercase tracking-[0.2em] text-gray-600 font-bold mx-auto">Featured Games</span>
+                    <span className="text-xs uppercase tracking-[0.2em] text-gray-600 font-bold mx-auto">Available Games</span>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    {[1, 2, 3, 4].map((i) => (
-                        <div key={i} className="group cursor-pointer">
-                            <div className="aspect-[3/4] rounded-[24px] overflow-hidden border border-white/5 group-hover:border-purple-500/50 transition-all relative">
-                                {/* <Image
-                                    src="https://m.media-amazon.com/images/I/71uV6W9B6CL.png"
-                                    alt="Game"
-                                    fill
-                                    className="object-cover grayscale transition-all group-hover:grayscale-0 group-hover:scale-105"
-                                /> */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
-                            </div>
-                            <p className="mt-4 text-[11px] font-bold text-gray-500 text-center tracking-wide group-hover:text-white transition-colors">Call of Duty Mobile</p>
-                        </div>
-                    ))}
+                <div className="bg-[#121212] border border-white/5 border-dashed rounded-[40px] p-20 flex flex-col items-center justify-center text-center gap-4">
+                    <div className="p-6 bg-white/5 rounded-full text-gray-600">
+                        <Gamepad2 size={40} />
+                    </div>
+                    <div>
+                        <h3 className="text-white font-bold text-lg">Coming Soon</h3>
+                        <p className="text-gray-500 text-sm max-w-xs mx-auto">We are currently integrating top-tier games into the platform. Stay tuned!</p>
+                    </div>
                 </div>
             </div>
 
-            {/* Rank and Leaderboard */}
+            {/* Rank and Leaderboard placeholder */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Leaderboard */}
-                <div className="bg-[#121212] border border-white/5 rounded-[40px] p-8 md:p-10 flex flex-col">
+                <div className="bg-[#121212] border border-white/5 rounded-[40px] p-8 md:p-10 flex flex-col min-h-[400px]">
                     <div className="flex justify-between items-center mb-10">
-                        <p className="text-[10px] uppercase tracking-[0.2em] text-gray-600 font-black">Leaderboad</p>
-                        <span className="text-[10px] uppercase font-bold text-gray-600">Top 10 Lagos</span>
+                        <p className="text-[10px] uppercase tracking-[0.2em] text-gray-600 font-black">Leaderboard</p>
                     </div>
-
-                    <div className="space-y-6 flex-1">
-                        <div className="grid grid-cols-3 text-[10px] uppercase tracking-[0.15em] text-gray-700 font-black px-2">
-                            <span>Position</span>
-                            <span>Name</span>
-                            <span className="text-right">Win rate</span>
-                        </div>
-
-                        <div className="space-y-2">
-                            {leaderboardData.map((user, idx) => (
-                                <div key={idx} className="grid grid-cols-3 items-center py-4 px-2 rounded-2xl hover:bg-white/5 transition-colors group">
-                                    <span className="text-sm font-bold text-gray-500 group-hover:text-gray-300">{user.pos}</span>
-                                    <span className="text-sm font-black text-gray-300 group-hover:text-white">{user.name}</span>
-                                    <span className="text-sm font-bold text-gray-300 group-hover:text-green-500 text-right">{user.rate}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    <div className="mt-10 pt-10 border-t border-white/5 flex justify-between items-center">
-                        <span className="text-[10px] text-gray-600 font-bold uppercase tracking-widest">Your Position</span>
-                        <span className="text-sm font-black text-purple-500">#124th in Lagos</span>
+                    <div className="flex-1 flex flex-col items-center justify-center text-center gap-4">
+                        <Trophy size={48} className="text-gray-800" />
+                        <p className="text-gray-600 font-bold text-sm">Season has not started yet</p>
                     </div>
                 </div>
 
                 {/* Rank Card */}
-                <div className="bg-gradient-to-br from-[#8E2DE2] to-[#4A00E0] rounded-[40px] p-10 flex flex-col items-center justify-center text-center relative overflow-hidden group">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1)_0%,transparent_70%)] animate-pulse"></div>
-
-                    <p className="text-[10px] uppercase tracking-[0.2em] text-white/60 font-black mb-10 z-10">Your Rank</p>
-
-                    <div className="relative z-10 mb-10">
-                        {/* Badge Visual */}
-                        <div className="w-56 h-56 relative animate-bounce-slow">
-                            <div className="absolute inset-0 bg-white/20 blur-[80px] rounded-full"></div>
-                            <div className="relative w-full h-full flex items-center justify-center p-4">
-                                <div className="w-full h-full bg-[#121212]/30 backdrop-blur-md rounded-3xl border border-white/20 transform rotate-45 flex items-center justify-center overflow-hidden">
-                                    <div className="transform -rotate-45 flex flex-col items-center gap-2">
-                                        <div className="text-4xl">⭐</div>
-                                        <div className="bg-purple-600 px-4 py-1.5 rounded-lg border border-white/20 shadow-xl mt-4">
-                                            <span className="text-[10px] font-black tracking-[0.2em] text-white uppercase">VETERAN</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                <div className="bg-[#121212] border border-white/5 rounded-[40px] p-10 flex flex-col items-center justify-center text-center relative overflow-hidden group min-h-[400px]">
+                    <p className="text-[10px] uppercase tracking-[0.2em] text-gray-600 font-black mb-10">Your Rank</p>
+                    <div className="flex-1 flex flex-col items-center justify-center text-center gap-4">
+                        <div className="w-32 h-32 rounded-full bg-white/5 border border-white/5 flex items-center justify-center">
+                            <span className="text-4xl">🌑</span>
                         </div>
+                        <h3 className="text-gray-400 font-black tracking-widest mt-4">UNRANKED</h3>
+                        <p className="text-gray-600 text-[11px] font-bold uppercase tracking-tight">Play 5 matches to get ranked</p>
                     </div>
-
-                    <span className="text-[10px] font-black text-white/60 uppercase tracking-widest z-10">NFT</span>
                 </div>
             </div>
 
-            {/* Match History */}
+            {/* Match History placeholder */}
             <div className="bg-[#121212] border border-white/5 rounded-[40px] p-8 md:p-10">
                 <div className="text-center mb-10">
                     <p className="text-[10px] uppercase tracking-[0.2em] text-gray-600 font-black">Match History</p>
                 </div>
-
-                <div className="space-y-4">
-                    <div className="flex items-center justify-between p-6 bg-white/5 border border-white/5 rounded-[32px] group hover:border-purple-500/30 transition-all cursor-pointer">
-                        <div className="flex items-center gap-6">
-                            <div className="w-16 h-16 bg-yellow-500 rounded-2xl overflow-hidden border border-white/10 relative">
-                                {/* <Image src="https://m.media-amazon.com/images/I/71uV6W9B6CL.png" alt="Match" fill className="object-cover" /> */}
-                            </div>
-                            <div className="space-y-1">
-                                <h4 className="font-black text-white group-hover:text-purple-400 transition-colors">vs Chidi356</h4>
-                                <p className="text-xs text-gray-500 font-bold">Sat 4, March 2025 - 11:30AM</p>
-                            </div>
-                        </div>
-
-                        <div className="text-right">
-                            <span className="text-sm font-black text-green-500 block mb-1">Won +4 SOL</span>
-                            <p className="text-[10px] text-gray-600 font-bold uppercase tracking-widest">Won 3 of last 7 games</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="mt-10 pt-10 border-t border-white/5 flex justify-between items-center text-[10px] uppercase font-black text-gray-700 tracking-[0.2em]">
-                    <span>Stats</span>
-                    <span>Won 3 of last 7 games</span>
+                <div className="flex flex-col items-center justify-center py-20 text-center gap-4 border border-white/5 border-dashed rounded-[32px]">
+                    <PackageOpen size={48} className="text-gray-800" />
+                    <p className="text-gray-600 font-bold text-sm">No matches played yet</p>
                 </div>
             </div>
-
         </div>
+    );
+}
+
+// Missing icon used above
+function Trophy({ size, className }) {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={size}
+            height={size}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={className}
+        >
+            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+            <path d="M4 22h16" />
+            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+        </svg>
     );
 }

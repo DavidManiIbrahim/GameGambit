@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 
 export default function VerificationPage() {
     const [email, setEmail] = useState('');
@@ -53,6 +54,8 @@ export default function VerificationPage() {
         }
     };
 
+    const { data: session, update } = useSession();
+
     const verify = async () => {
         setError('');
         const full = code.join('');
@@ -63,8 +66,9 @@ export default function VerificationPage() {
             if (!json.ok) {
                 setError(json.error || json.reason || 'Verification failed');
             } else {
-                // success — redirect
-                window.location.href = '/create-profile';
+                // success — update session and redirect
+                await update({ verified: true });
+                window.location.href = '/dashboard';
             }
         } catch (err) {
             setError(String(err));
