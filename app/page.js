@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -16,13 +16,26 @@ import {
 
 export default function Home() {
   const [email, setEmail] = useState("");
+  const [matches, setMatches] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const matches = [
-    { id: 1, players: ["KingDose02", "Jamiedone502"], stake: "4 SOL", game: "8 Ball Pool", icon: "/8ball.png" },
-    { id: 2, players: ["KingDose02", "Jamiedone502"], stake: "4 SOL", game: "8 Ball Pool", icon: "/8ball.png" },
-    { id: 3, players: ["KingDose02", "Jamiedone502"], stake: "4 SOL", game: "8 Ball Pool", icon: "/8ball.png" },
-    { id: 4, players: ["KingDose02", "Jamiedone502"], stake: "4 SOL", game: "8 Ball Pool", icon: "/8ball.png" },
-  ];
+  useEffect(() => {
+    const fetchMatches = async () => {
+      try {
+        const res = await fetch('http://localhost:4000/api/matches');
+        if (!res.ok) throw new Error('Failed to fetch matches');
+        const data = await res.json();
+        setMatches(data);
+      } catch (error) {
+        console.error('Error fetching matches:', error);
+        setMatches([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMatches();
+  }, []);
 
   return (
     <main className="min-h-screen flex flex-col items-center bg-black text-white relative">
@@ -111,89 +124,49 @@ export default function Home() {
       <section id="featured" className="py-24 w-full px-8 max-w-7xl">
         <h2 className="text-4xl font-bold text-center mb-16">Featured Matches</h2>
 
-        {/* Game Category: 8 Ball Pool */}
-        <div className="mb-12 bg-[#121212] rounded-3xl p-8 border border-white/5">
-          <div className="flex items-center gap-3 mb-8">
-            {/* <Image src="/8ball.png" width={32} height={32} className="rounded-md" alt="" /> */}
-            <h3 className="text-xl font-semibold">8 Ball Pool</h3>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {matches.map((match) => (
-              <Link href="/lounge" key={match.id} className="match-card block hover:border-[#B03EE1]/50 hover:shadow-[0_0_15px_rgba(176,62,225,0.1)] transition-all">
-                <div className="badge-live mb-4">Live Match</div>
-                <div className="flex justify-between items-center mb-6">
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-gray-800 rounded-full mx-auto mb-2 flex items-center justify-center group-hover:bg-gray-700 transition-colors">
-                      <Users className="w-6 h-6 text-gray-500" />
+        {loading ? (
+          <div className="text-center text-gray-400">Loading matches...</div>
+        ) : matches.length === 0 ? (
+          <div className="text-center text-gray-400">No matches available yet.</div>
+        ) : (
+          <div className="mb-12 bg-[#121212] rounded-3xl p-8 border border-white/5">
+            <div className="flex items-center gap-3 mb-8">
+              <h3 className="text-xl font-semibold">{matches[0]?.game || 'Matches'}</h3>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {matches.slice(0, 4).map((match) => (
+                <Link href="/lounge" key={match._id} className="match-card block hover:border-[#B03EE1]/50 hover:shadow-[0_0_15px_rgba(176,62,225,0.1)] transition-all">
+                  <div className="badge-live mb-4">Live Match</div>
+                  <div className="flex justify-between items-center mb-6">
+                    <div className="text-center">
+                      <div className="w-12 h-12 bg-gray-800 rounded-full mx-auto mb-2 flex items-center justify-center group-hover:bg-gray-700 transition-colors">
+                        <Users className="w-6 h-6 text-gray-500" />
+                      </div>
+                      <p className="text-[10px] text-gray-500">{match.players?.[0] || 'Player 1'}</p>
+                      <p className="text-[8px] text-green-500">Active</p>
                     </div>
-                    <p className="text-[10px] text-gray-500">KingDose02</p>
-                    <p className="text-[8px] text-green-500">Matches: 300+</p>
-                  </div>
-                  <span className="text-gray-600 text-xs">vs</span>
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-gray-800 rounded-full mx-auto mb-2 flex items-center justify-center group-hover:bg-gray-700 transition-colors">
-                      <Users className="w-6 h-6 text-gray-500" />
+                    <span className="text-gray-600 text-xs">vs</span>
+                    <div className="text-center">
+                      <div className="w-12 h-12 bg-gray-800 rounded-full mx-auto mb-2 flex items-center justify-center group-hover:bg-gray-700 transition-colors">
+                        <Users className="w-6 h-6 text-gray-500" />
+                      </div>
+                      <p className="text-[10px] text-gray-500">{match.players?.[1] || 'Player 2'}</p>
+                      <p className="text-[8px] text-green-500">Active</p>
                     </div>
-                    <p className="text-[10px] text-gray-500">Jamiedone502</p>
-                    <p className="text-[8px] text-green-500">Matches: 300+</p>
                   </div>
-                </div>
-                <div className="flex justify-between items-center mb-4 px-4">
-                  <span className="text-2xl font-bold">0</span>
-                  <span className="text-2xl font-bold">0</span>
-                </div>
-                <div className="flex justify-between items-center text-[10px] text-gray-500 pt-2 border-t border-white/5">
-                  <span>Wager</span>
-                  <span className="text-white flex items-center gap-1">
-                    <Image src="" width={12} height={12} className="invert" alt="" /> 4 SOL
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        {/* Ludo Section */}
-        <div className="mb-12 bg-[#121212] rounded-3xl p-8 border border-white/5">
-          <div className="flex items-center gap-3 mb-8">
-            {/* <Image src="/ludo.png" width={32} height={32} className="rounded-md" alt="" /> */}
-            <h3 className="text-xl font-semibold">Ludo</h3>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {matches.map((match) => (
-              <Link href="/lounge" key={match.id + 10} className="match-card block hover:border-[#B03EE1]/50 hover:shadow-[0_0_15px_rgba(176,62,225,0.1)] transition-all">
-                <div className="badge-live mb-4">Live Match</div>
-                <div className="flex justify-between items-center mb-6">
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-gray-800 rounded-full mx-auto mb-2 flex items-center justify-center">
-                      <Users className="w-6 h-6 text-gray-500" />
-                    </div>
-                    <p className="text-[10px] text-gray-500">KingDose02</p>
-                    <p className="text-[8px] text-green-500">Matches: 300+</p>
+                  <div className="flex justify-between items-center mb-4 px-4">
+                    <span className="text-2xl font-bold">0</span>
+                    <span className="text-2xl font-bold">0</span>
                   </div>
-                  <span className="text-gray-600 text-xs">vs</span>
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-gray-800 rounded-full mx-auto mb-2 flex items-center justify-center">
-                      <Users className="w-6 h-6 text-gray-500" />
-                    </div>
-                    <p className="text-[10px] text-gray-500">Jamiedone502</p>
-                    <p className="text-[8px] text-green-500">Matches: 300+</p>
+                  <div className="flex justify-between items-center text-[10px] text-gray-500 pt-2 border-t border-white/5">
+                    <span>Wager</span>
+                    <span className="text-white">{match.stake || '0 SOL'}</span>
                   </div>
-                </div>
-                <div className="flex justify-between items-center mb-4 px-4">
-                  <span className="text-2xl font-bold">0</span>
-                  <span className="text-2xl font-bold">0</span>
-                </div>
-                <div className="flex justify-between items-center text-[10px] text-gray-500 pt-2 border-t border-white/5">
-                  <span>Wager</span>
-                  <span className="text-white flex items-center gap-1">
-                    <Image src="" width={12} height={12} className="invert" alt="" /> 4 SOL
-                  </span>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </section>
 
       {/* Progress Section */}
