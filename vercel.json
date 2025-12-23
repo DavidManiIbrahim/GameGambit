@@ -4,6 +4,14 @@
     "trailingSlash": false,
     "rewrites": [
         {
+            "source": "/api/auth/:path*",
+            "destination": "/api/auth/:path*"
+        },
+        {
+            "source": "/api/otp/:path*",
+            "destination": "/api/otp/:path*"
+        },
+        {
             "source": "/api/:path*",
             "destination": "https://your-backend-api.onrender.com/api/:path*"
         }

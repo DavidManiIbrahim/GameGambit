@@ -47,3 +47,5 @@ app.get('/api/users', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Game Gambit backend listening on port ${PORT}`);
 });
+
+// console.log(process.env.NEXTAUTH_SECRET)
