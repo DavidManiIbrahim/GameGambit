@@ -4,12 +4,14 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import { X, Sword, Users, Search } from 'lucide-react';
+import { X, Sword, Users, Search, Loader2 } from 'lucide-react';
 
 export default function LoungePage() {
     const { data: session } = useSession();
     const [matchState, setMatchState] = useState('submit'); // 'submit', 'ongoing', 'completed'
     const [showToast, setShowToast] = useState(false);
+    const [opponent, setOpponent] = useState(null);
+    const [findingOpponent, setFindingOpponent] = useState(false);
 
     const userInitials = session?.user?.name
         ?.split(' ')
@@ -17,6 +19,32 @@ export default function LoungePage() {
         .join('')
         .slice(0, 2)
         .toUpperCase() || '??';
+
+    const opponentInitials = opponent?.username
+        ?.split(' ')
+        .map((n) => n[0])
+        .join('')
+        .slice(0, 2)
+        .toUpperCase() || '??';
+
+    const findRandomOpponent = async () => {
+        setFindingOpponent(true);
+        try {
+            const res = await fetch('/api/matchmaking/random');
+            const data = await res.json();
+
+            if (data.ok && data.opponent) {
+                setOpponent(data.opponent);
+            } else {
+                alert('No opponents available at the moment. Try again later!');
+            }
+        } catch (err) {
+            console.error('Error finding opponent:', err);
+            alert('Failed to find an opponent. Please try again.');
+        } finally {
+            setFindingOpponent(false);
+        }
+    };
 
     const renderButton = () => {
         switch (matchState) {
@@ -96,17 +124,48 @@ export default function LoungePage() {
 
                         <div className="flex flex-col items-center gap-2">
                             <span className="text-gray-800 font-black text-sm uppercase italic">vs</span>
-                            <div className="bg-purple-500/10 px-3 py-1 rounded-full border border-purple-500/20">
-                                <span className="text-[9px] font-black text-purple-500 uppercase tracking-widest animate-pulse">Waiting</span>
-                            </div>
+                            {opponent ? (
+                                <div className="bg-green-500/10 px-3 py-1 rounded-full border border-green-500/20">
+                                    <span className="text-[9px] font-black text-green-500 uppercase tracking-widest">Matched</span>
+                                </div>
+                            ) : (
+                                <div className="bg-purple-500/10 px-3 py-1 rounded-full border border-purple-500/20">
+                                    <span className="text-[9px] font-black text-purple-500 uppercase tracking-widest animate-pulse">Waiting</span>
+                                </div>
+                            )}
                         </div>
 
                         <div className="text-center">
                             <div className="flex flex-col items-center gap-3">
-                                <div className="w-16 h-16 bg-white/5 rounded-full border-2 border-dashed border-white/5 flex items-center justify-center text-[10px] text-gray-800">
-                                    <Search size={20} className="animate-bounce" />
-                                </div>
-                                <p className="text-xs font-bold text-gray-700">Finding Opponent</p>
+                                {opponent ? (
+                                    <>
+                                        <div className="w-16 h-16 bg-white/5 rounded-full overflow-hidden border-2 border-green-500/30 flex items-center justify-center relative">
+                                            {opponent.image ? (
+                                                <img src={opponent.image} alt={opponent.username} className="w-full h-full object-cover" />
+                                            ) : (
+                                                <span className="text-xl font-black text-white">{opponentInitials}</span>
+                                            )}
+                                        </div>
+                                        <p className="text-xs font-bold text-white">{opponent.username}</p>
+                                    </>
+                                ) : (
+                                    <>
+                                        <button
+                                            onClick={findRandomOpponent}
+                                            disabled={findingOpponent}
+                                            className="w-16 h-16 bg-purple-500/10 hover:bg-purple-500/20 rounded-full border-2 border-purple-500/30 hover:border-purple-500/50 flex items-center justify-center text-[10px] text-purple-500 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                                        >
+                                            {findingOpponent ? (
+                                                <Loader2 size={20} className="animate-spin" />
+                                            ) : (
+                                                <Search size={20} />
+                                            )}
+                                        </button>
+                                        <p className="text-xs font-bold text-gray-700">
+                                            {findingOpponent ? 'Searching...' : 'Click to Find'}
+                                        </p>
+                                    </>
+                                )}
                             </div>
                         </div>
                     </div>
