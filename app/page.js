@@ -22,7 +22,7 @@ export default function Home() {
   useEffect(() => {
     const fetchMatches = async () => {
       try {
-        const res = await fetch('http://localhost:4000/api/matches');
+        const res = await fetch('/api/matches');
         if (!res.ok) throw new Error('Failed to fetch matches');
         const data = await res.json();
         setMatches(data);
@@ -172,16 +172,16 @@ export default function Home() {
       {/* Progress Section */}
       <section className="w-[90%] max-w-4xl py-20 px-12 rounded-[40px] bg-gradient-to-br from-[#ff00ff] via-[#9d4edd] to-[#00d4ff] text-center mb-32 relative overflow-hidden">
         <div className="absolute inset-0 bg-white/10 backdrop-blur-3xl hidden"></div>
-        <h3 className="text-4xl font-bold mb-4">Join 325 Matches</h3>
-        <p className="text-white/80 mb-10">on Game Gambit</p>
+        <h3 className="text-4xl font-bold mb-4">Master the Gambit</h3>
+        <p className="text-white/80 mb-10">Stake, Play, Win on Game Gambit</p>
 
         <div className="max-w-2xl mx-auto">
           <div className="progress-container mb-4">
-            <div className="progress-bar"></div>
+            <div className="progress-bar" style={{ width: '5%' }}></div>
           </div>
           <div className="flex justify-between text-xs text-white/70">
-            <span>0 matches</span>
-            <span>1000 matches</span>
+            <span>Community Goals</span>
+            <span>Season 1</span>
           </div>
         </div>
       </section>

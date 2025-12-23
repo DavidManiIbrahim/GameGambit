@@ -1,17 +1,31 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { ChevronDown } from 'lucide-react';
 import { useSession, signOut } from 'next-auth/react';
 import Sidebar from './Sidebar';
 
 export default function DashboardLayout({ children, title }) {
-    const { data: session } = useSession();
+    const { data: session, status } = useSession();
     const pathname = usePathname();
+    const router = useRouter();
     const [showProfileMenu, setShowProfileMenu] = useState(false);
+
+    // Enforce verification for all dashboard-related pages
+    useEffect(() => {
+        if (status === 'authenticated' && !session?.user?.verified) {
+            // Only redirect if we ARENT already on the verify page
+            if (pathname !== '/verify') {
+                router.push('/verify');
+            }
+        }
+        if (status === 'unauthenticated') {
+            router.push('/signin');
+        }
+    }, [status, session, pathname, router]);
 
     // Derive title if not provided
     const displayTitle = title || (pathname.split('/').pop() || 'Home');
@@ -22,6 +36,14 @@ export default function DashboardLayout({ children, title }) {
         .join('')
         .slice(0, 2)
         .toUpperCase() || '??';
+
+    if (status === 'loading' || (status === 'authenticated' && !session?.user?.verified && pathname !== '/verify')) {
+        return (
+            <div className="min-h-screen bg-black flex items-center justify-center">
+                <div className="w-10 h-10 border-4 border-purple-500/30 border-t-purple-500 rounded-full animate-spin"></div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-black text-white font-sans flex">
@@ -42,7 +64,7 @@ export default function DashboardLayout({ children, title }) {
                             className="flex items-center gap-3 bg-[#121212] hover:bg-[#1a1a1a] p-1.5 pl-4 rounded-full border border-white/5 transition-all outline-none"
                         >
                             <div className="bg-[#B03EE1]/10 text-[#B03EE1] text-[10px] font-black px-3 py-1 rounded-full border border-[#B03EE1]/20 uppercase tracking-widest hidden md:block">
-                                Veteran
+                                {session?.user?.verified ? 'Verified' : 'Unverified'}
                             </div>
                             <div className="flex items-center gap-2">
                                 {session?.user?.image ? (
@@ -76,14 +98,7 @@ export default function DashboardLayout({ children, title }) {
                                         onClick={() => setShowProfileMenu(false)}
                                         className="block px-6 py-3 text-sm text-gray-400 hover:text-white transition-colors"
                                     >
-                                        View public profile
-                                    </Link>
-                                    <Link
-                                        href="/profile"
-                                        onClick={() => setShowProfileMenu(false)}
-                                        className="block px-6 py-3 text-sm text-gray-400 hover:text-white transition-colors"
-                                    >
-                                        View internal profile
+                                        My Profile
                                     </Link>
                                     <div className="h-px bg-white/5 my-2 mx-4"></div>
                                     <button
