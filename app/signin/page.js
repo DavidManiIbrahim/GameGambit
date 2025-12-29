@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image' 
 import Link from 'next/link';
 import { Eye, EyeOff, Loader2 } from 'lucide-react';
 import { signIn } from 'next-auth/react';
@@ -59,7 +60,10 @@ export default function SignInPage() {
                         <div className="w-48 h-48 mx-auto relative group">
                             <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-blue-500 blur-2xl opacity-40 group-hover:opacity-60 transition-opacity"></div>
                             <div className="relative bg-[#121212] border border-white/10 rounded-full w-full h-full flex items-center justify-center">
-                                <div className="text-6xl">🎮</div>
+                                {/* <div className="text-6xl">🎮</div> */}
+                                <div className="flex items-center gap-3">
+                                    <Image src="/logo.png" alt="Logo" width={300} height={100} />
+                                </div>
                             </div>
                         </div>
 

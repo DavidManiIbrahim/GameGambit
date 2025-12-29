@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image'
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -27,9 +28,11 @@ export default function Sidebar() {
         <aside className="w-64 border-r border-white/5 flex flex-col fixed h-full bg-black z-20">
             <div className="p-8">
                 <Link href="/" className="flex items-center gap-2">
-                    <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-xl flex items-center justify-center shadow-[0_0_15px_rgba(176,62,225,0.4)]">
-                        <span className="text-xl font-bold">G</span>
-                    </div>
+                    {/* <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-xl flex items-center justify-center shadow-[0_0_15px_rgba(176,62,225,0.4)]"> */}
+                         <div className="flex items-center gap-3">
+                                  <Image src="/logo.png" alt="Logo" width={40} height={40} />
+                                </div>
+                    {/* </div> */}
                 </Link>
             </div>
 
