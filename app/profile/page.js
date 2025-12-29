@@ -58,7 +58,12 @@ export default function ProfilePage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6">
                         <div className="space-y-1">
                             <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Wallet</p>
-                            <p className="text-sm font-bold text-gray-600 font-mono italic">Not connected</p>
+                            <div className="flex items-center gap-3">
+                                <p className="text-sm font-bold text-gray-600 font-mono italic">Not connected</p>
+                                <button className="bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 border border-purple-500/50 text-[10px] uppercase font-bold px-3 py-1 rounded hover:text-purple-300 transition-colors">
+                                    Connect Wallet
+                                </button>
+                            </div>
                         </div>
                         <div className="space-y-1">
                             <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Email Address</p>

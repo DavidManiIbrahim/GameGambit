@@ -60,7 +60,7 @@ export default function Home() {
           <Link href="/dashboard" className="hover:text-white transition-colors">Dashboard</Link>
         </div>
         <Link href="/signup" className="btn-primary">Get Started</Link>
-        <Link href="/signin" className="btn-primary">Login</Link>
+        <Link href="/signin" className="btn-secondary px-6">Login</Link>
       </nav>
 
       {/* Hero Section */}
@@ -80,7 +80,7 @@ export default function Home() {
             placeholder="Enter email address"
             className="input-field flex-grow"
           />
-          <Link href="/signup" className="btn-primary !px-8 flex items-center justify-center">Connect Wallet</Link>
+          <Link href="/signup" className="btn-primary !px-8 flex items-center justify-center">Get Started</Link>
         </div>
         <p className="text-xs text-silver-400 opacity-60">Wait, it&apos;s not live yet but soon</p>
       </section>
