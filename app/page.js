@@ -59,7 +59,8 @@ export default function Home() {
           <a href="#how" className="hover:text-white transition-colors">How it Works</a>
           <Link href="/dashboard" className="hover:text-white transition-colors">Dashboard</Link>
         </div>
-        <Link href="/signup" className="btn-primary">Connect Wallet</Link>
+        <Link href="/signup" className="btn-primary">Get Started</Link>
+        <Link href="/signin" className="btn-primary">Login</Link>
       </nav>
 
       {/* Hero Section */}
