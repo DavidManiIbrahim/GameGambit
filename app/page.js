@@ -50,17 +50,19 @@ export default function Home() {
       {/* <Image src="/poker-chip.png" width={128} height={128} className="absolute top-1/3 right-10 animate-bounce opacity-20 -z-5" style={{ animationDuration: '4s' }} alt="" /> */}
 
       {/* Navigation */}
-      <nav className="w-full flex justify-between items-center px-12 py-6 z-50">
+      <nav className="w-full flex justify-between items-center px-12 py-6 z-50 relative">
         <div className="flex items-center gap-3">
           <Image src="/logo.png" alt="Logo" width={40} height={40} />
         </div>
-        <div className="hidden md:flex gap-10 mx-auto text-sm font-medium text-gray-300">
+        <div className="hidden md:flex gap-10 absolute left-1/2 -translate-x-1/2 text-sm font-medium text-gray-300">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <a href="#how" className="hover:text-white transition-colors">How it Works</a>
           <Link href="/dashboard" className="hover:text-white transition-colors">Dashboard</Link>
         </div>
-        <Link href="/signup" className="btn-primary">Get Started</Link>
-        <Link href="/signin" className="btn-secondary px-6">Login</Link>
+        <div className="flex items-center gap-4">
+          <Link href="/signup" className="btn-primary">Get Started</Link>
+          <Link href="/signin" className="btn-secondary px-6">Login</Link>
+        </div>
       </nav>
 
       {/* Hero Section */}
