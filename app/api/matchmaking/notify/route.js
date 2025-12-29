@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getDb } from '@/lib/mongo';
-import { sendNotification } from '@/lib/mailer';
+import { sendNotification as  } from '@/lib/mailer';
 
 export async function POST(req) {
     try {
