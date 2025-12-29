@@ -98,7 +98,13 @@ export default function DashboardPage() {
                         Start a New Match <Gamepad2 size={22} strokeWidth={2.5} />
                     </button>
                 </Link>
-                <button className="w-full bg-[#121212] border border-white/10 text-white rounded-[24px] py-5 font-bold text-lg hover:bg-[#1a1a1a] transition-all active:scale-[0.98] flex items-center justify-center gap-3">
+                <button
+                    onClick={() => {
+                        const text = encodeURIComponent("Hey! Join me on Game Gambit and let's stake SOL to win big! Sign up here: https://gamegambit.com");
+                        window.open(`https://wa.me/?text=${text}`, '_blank');
+                    }}
+                    className="w-full bg-[#121212] border border-white/10 text-white rounded-[24px] py-5 font-bold text-lg hover:bg-[#1a1a1a] transition-all active:scale-[0.98] flex items-center justify-center gap-3"
+                >
                     Invite a Friend <UserPlus size={22} />
                 </button>
             </div>

@@ -1,8 +1,18 @@
 'use client';
 
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 
 export default function LoungeLayout({ children }) {
+    const { data: session } = useSession();
+
+    const userInitials = session?.user?.name
+        ?.split(' ')
+        .map((n) => n[0])
+        .join('')
+        .slice(0, 2)
+        .toUpperCase() || '??';
+
     return (
         <div className="min-h-screen bg-black text-white font-sans flex flex-col">
             {/* Header */}
@@ -13,13 +23,17 @@ export default function LoungeLayout({ children }) {
 
                 <div className="flex items-center gap-3">
                     <div className="bg-[#B03EE1]/10 text-[#B03EE1] text-[10px] font-bold px-3 py-1 rounded-full border border-[#B03EE1]/20 uppercase tracking-wider">
-                        Veteran
+                        Rookie
                     </div>
                     <div className="flex items-center gap-2 bg-[#121212] px-3 py-1.5 rounded-full border border-white/5">
-                        <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-[10px] font-bold text-black">
-                            JB
+                        <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-[10px] font-bold text-black overflow-hidden relative">
+                            {session?.user?.image ? (
+                                <img src={session.user.image} alt={session.user.name} className="w-full h-full object-cover" />
+                            ) : (
+                                userInitials
+                            )}
                         </div>
-                        <span className="text-sm font-medium text-gray-300">Jamesbond007</span>
+                        <span className="text-sm font-medium text-gray-300">{session?.user?.name || 'Loading...'}</span>
                     </div>
                 </div>
             </header>
